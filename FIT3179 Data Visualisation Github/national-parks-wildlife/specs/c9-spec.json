@@ -1,0 +1,107 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 360,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "background": "#ffffff",
+    "axis": {
+      "labelColor": "#34483a",
+      "titleColor": "#34483a",
+      "gridColor": "#e8eee7"
+    },
+    "legend": {
+      "labelColor": "#34483a",
+      "titleColor": "#34483a"
+    }
+  },
+  "description": "C9: Ten IBRA regions with the highest summed monitoring recordCount in the terrestrial monitoring summary.",
+  "data": {
+    "url": "data/summary_monitoring_effort_terrestrial.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.recordCount)",
+      "as": "records"
+    },
+    {
+      "filter": "isValid(datum.records) && datum.ibraRegion != null && datum.ibraRegion != \"\""
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "records",
+          "as": "totalRecords"
+        }
+      ],
+      "groupby": [
+        "ibraRegion"
+      ]
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "totalRecords",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.rank <= 10"
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 3,
+    "color": "#6389a5"
+  },
+  "encoding": {
+    "y": {
+      "field": "ibraRegion",
+      "type": "nominal",
+      "sort": "-x",
+      "title": null,
+      "axis": {
+        "labelLimit": 220
+      }
+    },
+    "x": {
+      "field": "totalRecords",
+      "type": "quantitative",
+      "title": "Summed monitoring records",
+      "axis": {
+        "format": ".2s"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "ibraRegion",
+        "type": "nominal",
+        "title": "IBRA region"
+      },
+      {
+        "field": "totalRecords",
+        "type": "quantitative",
+        "title": "Records",
+        "format": ",.0f"
+      }
+    ]
+  }
+}

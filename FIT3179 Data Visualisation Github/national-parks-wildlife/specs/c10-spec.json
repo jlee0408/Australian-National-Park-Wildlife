@@ -1,0 +1,92 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": {"step": 26},
+  "autosize": {"type": "fit-x", "contains": "padding", "resize": true},
+  "config": {
+    "view": {"stroke": null},
+    "background": "#ffffff",
+    "axis": {
+      "labelColor": "#34483a",
+      "titleColor": "#34483a",
+      "gridColor": "#e8eee7",
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelColor": "#34483a",
+      "titleColor": "#34483a",
+      "labelLimit": 220,
+      "titleFontSize": 12
+    }
+  },
+  "description": "C10: Heatmap of the recorded risk assessment categories for each listed exotic environmental pest. Cell colours represent the original categorical assessment, not a calculated or numeric risk score.",
+  "data": {
+    "url": "data/Date_EexoticEnvironmentalPests_v1.0.0.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "filter": "(datum.species_name != null && datum.species_name != '') || (datum.common_name != null && datum.common_name != '')"
+    },
+    {
+      "calculate": "datum.common_name != null && datum.common_name != '' ? datum.common_name + ' (' + datum.species_name + ')' : datum.species_name",
+      "as": "speciesLabel"
+    },
+    {
+      "fold": [
+        "entry_likelihood",
+        "establishment_likelihood",
+        "spread_likelihood",
+        "environmental_impact",
+        "social_amenity_impact",
+        "higher_risk_species_within_group"
+      ],
+      "as": ["riskDimension", "riskValue"]
+    },
+    {"filter": "datum.riskValue != null && datum.riskValue != ''"},
+    {
+      "calculate": "replace(replace(replace(replace(replace(replace(datum.riskDimension, 'entry_likelihood', 'Entry likelihood'), 'establishment_likelihood', 'Establishment likelihood'), 'spread_likelihood', 'Spread likelihood'), 'environmental_impact', 'Environmental impact'), 'social_amenity_impact', 'Social / amenity impact'), 'higher_risk_species_within_group', 'Higher-risk species in group')",
+      "as": "dimensionLabel"
+    }
+  ],
+  "mark": {"type": "rect", "stroke": "#ffffff", "strokeWidth": 1},
+  "encoding": {
+    "x": {
+      "field": "dimensionLabel",
+      "type": "ordinal",
+      "title": "Assessment dimension",
+      "sort": [
+        "Entry likelihood",
+        "Establishment likelihood",
+        "Spread likelihood",
+        "Environmental impact",
+        "Social / amenity impact",
+        "Higher-risk species in group"
+      ],
+      "axis": {"labelAngle": -28, "labelLimit": 190, "labelPadding": 8, "ticks": false, "domain": false}
+    },
+    "y": {
+      "field": "speciesLabel",
+      "type": "ordinal",
+      "title": "Pest species",
+      "sort": "ascending",
+      "axis": {"labelLimit": 260, "labelPadding": 5, "ticks": false, "domain": false}
+    },
+    "color": {
+      "field": "riskValue",
+      "type": "nominal",
+      "title": "Recorded assessment",
+      "scale": {"scheme": "tableau10"}
+    },
+    "tooltip": [
+      {"field": "common_name", "type": "nominal", "title": "Common name"},
+      {"field": "species_name", "type": "nominal", "title": "Scientific name"},
+      {"field": "thematic_group", "type": "nominal", "title": "Thematic group"},
+      {"field": "dimensionLabel", "type": "nominal", "title": "Assessment dimension"},
+      {"field": "riskValue", "type": "nominal", "title": "Recorded assessment"},
+      {"field": "references", "type": "nominal", "title": "References"},
+      {"field": "additional_notes", "type": "nominal", "title": "Additional notes"}
+    ]
+  }
+}

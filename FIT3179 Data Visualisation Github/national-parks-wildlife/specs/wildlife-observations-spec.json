@@ -1,0 +1,139 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "M2: Interactive IBRA 7.1 bioregion choropleth. Fill colour and tooltip values use the selected aggregated D2 occurrence-record or species metric.",
+  "width": "container",
+  "height": 540,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "projection": {
+    "type": "conicConformal",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -134,
+      0,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "values": []
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#ffffff",
+        "strokeWidth": 0.55
+      },
+      "encoding": {
+        "color": {
+          "condition": {
+            "test": "isValid(datum.properties.selectedMetric)",
+            "field": "properties.selectedMetric",
+            "type": "quantitative"
+          },
+          "value": "#e4e9e4",
+          "scale": {
+            "scheme": "tealblues",
+            "zero": true
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "gradientLength": 260
+          },
+          "title": "Selected D2 measure"
+        },
+        "tooltip": [
+          {
+            "field": "properties.ibraRegionName",
+            "type": "nominal",
+            "title": "IBRA region"
+          },
+          {
+            "field": "properties.selectedMetric",
+            "type": "quantitative",
+            "title": "Selected measure",
+            "format": ",.0f"
+          },
+          {
+            "field": "properties.recordCount",
+            "type": "quantitative",
+            "title": "Occurrence records",
+            "format": ",.0f"
+          },
+          {
+            "field": "properties.regionRecordCount",
+            "type": "quantitative",
+            "title": "All region records",
+            "format": ",.0f"
+          },
+          {
+            "field": "properties.protectedRecordCount",
+            "type": "quantitative",
+            "title": "Protected records",
+            "format": ",.0f"
+          },
+          {
+            "field": "properties.indigenousProtectedRecordCount",
+            "type": "quantitative",
+            "title": "Indigenous protected records",
+            "format": ",.0f"
+          },
+          {
+            "field": "properties.protectedPercentage",
+            "type": "quantitative",
+            "title": "Protected records (%)",
+            "format": ",.2f"
+          },
+          {
+            "field": "properties.speciesCount",
+            "type": "quantitative",
+            "title": "Species count in selected rows",
+            "format": ",.0f"
+          },
+          {
+            "field": "properties.hasD2Data",
+            "type": "nominal",
+            "title": "Has matching D2 data"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": []
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "transparent",
+        "stroke": "#34483a",
+        "strokeWidth": 1.0
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "properties.stateName",
+            "type": "nominal",
+            "title": "State/territory"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "background": "#ffffff",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#34483a",
+      "titleColor": "#34483a",
+      "gridColor": "#e8eee7"
+    }
+  }
+}
