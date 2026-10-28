@@ -2,7 +2,7 @@
 
 A data visualisation exploring biodiversity, protected areas, wildlife observations and threatened species across Australia, built for Monash University's FIT3179 Data Visualisation 2 assignment.
 
-Live Site :
+Live Site : https://jlee0408.github.io/Australian-National-Park-Wildlife/
 
 
 
