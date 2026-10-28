@@ -1,0 +1,135 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "M3 proportional-symbol map: threatened species counts associated with CAPAD protected-area locations through their containing IBRA region.",
+  "width": "container",
+  "height": 480,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [
+      133,
+      -27
+    ],
+    "scale": 650
+  },
+  "layer": [
+    {
+      "data": {
+        "values": []
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f0f4ef",
+        "stroke": "#aebdaf",
+        "strokeWidth": 0.45
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "properties.REG_NAME_7",
+            "type": "nominal",
+            "title": "IBRA region"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": []
+      },
+      "mark": {
+        "type": "circle",
+        "opacity": 0.78,
+        "stroke": "#244d38",
+        "strokeWidth": 0.7
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "threatenedSpeciesCount",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt",
+            "range": [
+              25,
+              1500
+            ],
+            "domain": [
+              0,
+              1
+            ]
+          },
+          "legend": {
+            "title": "Threatened species (IBRA region)",
+            "symbolType": "circle",
+            "format": ",d"
+          }
+        },
+        "color": {
+          "field": "threatenedSpeciesCount",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "greens"
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "name",
+            "type": "nominal",
+            "title": "Protected area"
+          },
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State/territory"
+          },
+          {
+            "field": "ibraRegion",
+            "type": "nominal",
+            "title": "IBRA region"
+          },
+          {
+            "field": "threatenedSpeciesCount",
+            "type": "quantitative",
+            "title": "Matched threatened species",
+            "format": ",d"
+          },
+          {
+            "field": "type",
+            "type": "nominal",
+            "title": "Protected-area type"
+          },
+          {
+            "field": "paId",
+            "type": "nominal",
+            "title": "CAPAD PA_ID"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "legend": {
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    },
+    "axis": {
+      "grid": false
+    }
+  }
+}

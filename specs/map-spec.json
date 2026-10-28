@@ -1,0 +1,131 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "M1: Australian state and territory choropleth of CAPAD 2024 terrestrial protected-area record counts, with optional point markers.",
+  "width": "container",
+  "height": 520,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "projection": {
+    "type": "equalEarth"
+  },
+  "layer": [
+    {
+      "data": {
+        "values": []
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#ffffff",
+        "strokeWidth": 1.1
+      },
+      "encoding": {
+        "color": {
+          "condition": {
+            "test": "isValid(datum.properties.protectedAreaCount)",
+            "field": "properties.protectedAreaCount",
+            "type": "quantitative"
+          },
+          "value": "#e3e7e3",
+          "scale": {
+            "scheme": "greens"
+          },
+          "legend": {
+            "orient": "bottom"
+          },
+          "title": "CAPAD protected-area records"
+        },
+        "tooltip": [
+          {
+            "field": "properties.stateName",
+            "type": "nominal",
+            "title": "State/territory"
+          },
+          {
+            "field": "properties.protectedAreaCount",
+            "type": "quantitative",
+            "title": "CAPAD records",
+            "format": ","
+          },
+          {
+            "field": "properties.totalAreaHa",
+            "type": "quantitative",
+            "title": "Sum of GIS_AREA (ha)",
+            "format": ",.2f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": []
+      },
+      "mark": {
+        "type": "geoshape",
+        "filled": false,
+        "stroke": "#536158",
+        "strokeWidth": 0.6
+      },
+      "encoding": {}
+    },
+    {
+      "data": {
+        "values": []
+      },
+      "mark": {
+        "type": "circle",
+        "filled": true,
+        "color": "#b85f2c",
+        "opacity": 0.55,
+        "size": 18,
+        "stroke": "#ffffff",
+        "strokeWidth": 0.2
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "name",
+            "type": "nominal",
+            "title": "Protected area"
+          },
+          {
+            "field": "type",
+            "type": "nominal",
+            "title": "CAPAD type"
+          },
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State/territory"
+          },
+          {
+            "field": "area",
+            "type": "quantitative",
+            "title": "GIS area (ha)",
+            "format": ",.2f"
+          },
+          {
+            "field": "paId",
+            "type": "nominal",
+            "title": "PA ID"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "background": "#ffffff"
+  }
+}
