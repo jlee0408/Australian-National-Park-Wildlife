@@ -26,10 +26,13 @@ specs/ contains the chart and map specifications as readable JSON files
 
 data/ contains the source datasets, processed data and geographic boundary files required by the visualisations
 
-DATA\_FILES\_REQUIRED.txt lists the datasets and geographic files expected by the project
+DATA\_FILES\_REQUIRED.md lists the datasets and geographic files expected by the project
 
-FINDINGS\_AND\_DATA\_NOTES.txt summarises the main reported findings
+FINDINGS\_AND\_DATA\_NOTES.md summarises the main reported findings
+
 SOURCES.md documents the data sources and their uses
+
 NARRATIVE.md explains the story structure and the purpose of the individual visualisations
+
 PALETTE.md documents the dashboard's colour palette and consistency guidelines
 
