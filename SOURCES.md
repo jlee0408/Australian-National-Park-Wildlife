@@ -1,7 +1,6 @@
 # Sources and data notes
 
-This document records the source families used by **Protected, But Not Everywhere**, the role of each source, and the limitations that affect interpretation. The recovered project archive does not include all original CSV datasets or geographic boundary files, so exact publication URLs, download dates and release metadata should be completed from the original downloaded files before submission. Do not treat missing metadata as verified.
-
+This document records the source families used by **Protected, But Not Everywhere**, the role of each source, the limitations that affect interpretation and their URL link. 
 ## Source inventory
 
 |Source|Use in this project|Known interpretation notes|Links|
